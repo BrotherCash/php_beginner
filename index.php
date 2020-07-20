@@ -1,38 +1,11 @@
 <?php
 
-$host = 'localhost';
-$user = 'brothercash';
-$password = '';
-$database = 'phpbeginner';
+require_once 'db.php';
 
-$connect = mysqli_connect($host, $user, $password, $database);
+$query = "SELECT * FROM products";
+$result = query($connect, $query);
 
-if (mysqli_connect_errno()) {
-    $error = mysqli_connect_error();
-    var_dump($error);
 
-    exit;
-}
-
-$query = "SELECT * FROM books";
-$result = mysqli_query($connect, $query);
-
-if (mysqli_errno($connect)) {
-    var_dump(mysqli_error($connect));
-    exit;
-}
-
-//echo "<pre>";
-//Вывод строк в виде масива
-//while ($row = mysqli_fetch_row($result)) {
-//    var_dump($row);
-//}
-
-//Вывод строк в виде ассоциативного массива, что удобнее
-//while ($row = mysqli_fetch_assoc($result)) {
-//    var_dump($row);
-//}
-//echo "</pre>";
 echo "<a href='/add.php'>Добавить</a>";
 echo "<table border='1' cellpadding='3'>";
 $is_header = true;
