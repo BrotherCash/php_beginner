@@ -1,6 +1,6 @@
 <?php
 
-require_once 'db.php';
+require_once 'config.php';
 
 $id = $_POST['id'] ?? 0;
 $id = (int) $id;

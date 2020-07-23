@@ -1,5 +1,7 @@
 <?php
 
+require_once('libs/Smarty/Smarty.class.php');
+
 function connect($host, $user, $password, $database) {
     $connect = mysqli_connect($host, $user, $password, $database);
 
@@ -24,5 +26,11 @@ function query($connect, $query) {
 
     return $result;
 }
+
+$smarty = new Smarty();
+$smarty->template_dir = __DIR__ . '/templates';
+$smarty->compile_dir = __DIR__ . '/var/compile';
+$smarty->config_dir = __DIR__ . '/var/config';
+$smarty->cache_dir = __DIR__ . '/var/cache';
 
 

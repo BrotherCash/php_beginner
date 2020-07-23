@@ -1,6 +1,6 @@
 <?php
 
-require_once 'db.php';
+require_once 'config.php';
 
 if (!empty($_POST)) {
     $id = $_POST['id'] ?? '';
@@ -20,36 +20,6 @@ if (!empty($_POST)) {
     }
 
 }
+$smarty->display('products/add.tpl');
 
-?>
-<br>
-<br>
-<form method="post" action="">
-    <label>
-        Название товара: <input type="text" name="name" required">
-    </label>
-    <br>
-    <br>
-    <label>
-        Артикул: <input type="text" name="article" required>
-    </label>
-    <br>
-    <br>
-    <label>
-        Цена: <input type="number" name="price" required>
-    </label>
-    <br>
-    <br>
-    <label>
-        Количество на складе: <input type="numb" name="amount">
-    </label>
-    <br>
-    <br>
-    <label>
-        Описание товара: <br>
-        <textarea name="description" cols="30" rows="10" required></textarea>
-    </label>
-    <br>
-    <br>
-    <input type="submit" value="Добавить">
-</form>
+
