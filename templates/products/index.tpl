@@ -1,7 +1,7 @@
 {include file="header.tpl" h1="Список товаров"}
 
         <p>
-            <a href="/add.php">Добавить</a>
+            <a href="/public/products/add.php">Добавить</a>
         </p>
         <p>
             <table class="table">
@@ -26,9 +26,9 @@
                         <td>{$product.amount}</td>
                         <td>{$product.description}</td>
                         <td>
-                            <a href='/edit.php?id={$product.id}'>Редактировать</a>
+                            <a href='/public/products/edit.php?id={$product.id}'>Редактировать</a>
                             &nbsp;&nbsp;|&nbsp;&nbsp;
-                            <form action="/delete.php" method="post" style="display: inline-block"><input type="hidden" name="id" value="{$product.id}"><input type="submit" value="Удалить"></form>
+                            <form action="/public/products/delete.php" method="post" style="display: inline-block"><input type="hidden" name="id" value="{$product.id}"><input type="submit" value="Удалить"></form>
                         </td>
                     </tr>
                     {/foreach}
