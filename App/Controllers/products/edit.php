@@ -1,7 +1,5 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/../config/config.php';
-
 $id = $_GET['id'];
 $id = (int) $id;
 $product = [];
@@ -28,7 +26,7 @@ if (!empty($_POST)) {
     $result = query($connect, $query);
 
     if (mysqli_affected_rows($connect)) {
-        header('location: /');
+        header('location: /products/list');
     } else {
         die('some insertion error');
     }

@@ -1,7 +1,7 @@
 {include file="header.tpl" h1="Добавление товара"}
 
 <p>
-    <a href="/">Список товаров</a>
+    <a href="/products/list">Список товаров</a>
 </p>
 
 <p>

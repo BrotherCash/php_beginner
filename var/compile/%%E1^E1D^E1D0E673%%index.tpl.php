@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.31, created on 2020-07-23 06:42:02
+<?php /* Smarty version 2.6.31, created on 2020-07-23 06:50:36
          compiled from products/index.tpl */ ?>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => "header.tpl", 'smarty_include_vars' => array('h1' => "Список товаров")));
@@ -7,7 +7,7 @@ unset($_smarty_tpl_vars);
  ?>
 
         <p>
-            <a href="/App/Controllers/products/add.php">Добавить</a>
+            <a href="/products/add">Добавить</a>
         </p>
         <p>
             <table class="table">
@@ -40,10 +40,10 @@ unset($_smarty_tpl_vars);
                         <td><?php echo $this->_tpl_vars['product']['description']; ?>
 </td>
                         <td>
-                            <a href='/App/Controllers/products/edit.php?id=<?php echo $this->_tpl_vars['product']['id']; ?>
+                            <a href='/products/edit?id=<?php echo $this->_tpl_vars['product']['id']; ?>
 '>Редактировать</a>
                             &nbsp;&nbsp;|&nbsp;&nbsp;
-                            <form action="/App/Controllers/products/delete.php" method="post" style="display: inline-block"><input type="hidden" name="id" value="<?php echo $this->_tpl_vars['product']['id']; ?>
+                            <form action="/products/delete" method="post" style="display: inline-block"><input type="hidden" name="id" value="<?php echo $this->_tpl_vars['product']['id']; ?>
 "><input type="submit" value="Удалить"></form>
                         </td>
                     </tr>

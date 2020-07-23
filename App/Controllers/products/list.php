@@ -1,8 +1,5 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/../config/config.php';
-
-
 $query = "SELECT * FROM products";
 $result = query($connect, $query);
 

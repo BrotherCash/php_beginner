@@ -1,7 +1,5 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/../config/config.php';
-
 $id = $_POST['id'] ?? 0;
 $id = (int) $id;
 
@@ -13,7 +11,7 @@ $query = "DELETE FROM products WHERE id = $id";
 $result = query($connect, $query);
 
 if (mysqli_affected_rows($connect)) {
-    header('location: /');
+    header('location: /products/list');
 } else {
     die('some deletion error');
 }
