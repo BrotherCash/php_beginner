@@ -9,8 +9,20 @@
 
     <div class="form-element">
         <label>
-            <span class="label">Название товара:</span>
-            Артикул: <input type="text" name="article" required value="{$product.article}">
+            <span class="label">Категория товара:</span>
+            <select name="category_id" id="">
+                <option value="0">Не выбрано</option>
+            {foreach from=$categories item=category}
+                <option value="{$category.id}">{$category.name}</option>
+            {/foreach}
+            </select>
+        </label>
+    </div>
+
+    <div class="form-element">
+        <label>
+            <span class="label">Артикул:</span>
+            <input type="text" name="article" required value="{$product.article}">
         </label>
     </div>
 

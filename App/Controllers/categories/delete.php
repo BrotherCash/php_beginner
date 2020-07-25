@@ -7,10 +7,10 @@ if (!$id) {
     die('Something is wrong with id');
 }
 
-$deleted = delete_product_by_id($connect, $id);
+$deleted = delete_category_by_id($connect, $id);
 
 if ($deleted) {
-    header('location: /products/list');
+    header('location: /categories/list');
 } else {
     die('some deletion error');
 }

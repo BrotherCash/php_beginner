@@ -12,4 +12,10 @@ if ($is_index) {
 
 $controller_path = $_SERVER['DOCUMENT_ROOT'] . '/../App/Controllers' . $path_info . '.php';
 
-require_once $controller_path;
+
+if (file_exists($controller_path)) {
+    require_once $controller_path;
+} else {
+    $smarty->display('404.tpl');
+}
+

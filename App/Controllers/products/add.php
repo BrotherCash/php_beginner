@@ -1,23 +1,19 @@
 <?php
 
 if (!empty($_POST)) {
-    $id = $_POST['id'] ?? '';
-    $name = $_POST['name'] ?? '';
-    $article = $_POST['article'] ?? '';
-    $price = $_POST['price'] ?? '';
-    $amount = $_POST['amount'] ?? '';
-    $description = $_POST['description'] ?? '';
+    $product = get_product_from_post();
+    $inserted = add_product($connect, $product);
 
-    $query = "INSERT INTO products(name, article, price, amount, description) VALUES ('$name', '$article', '$price', '$amount', '$description')";
-    $result = query($connect, $query);
-
-    if (mysqli_affected_rows($connect)) {
+    if ($inserted) {
         header('location: /products/list');
     } else {
         die('some insertion error');
     }
-
 }
+
+$categories = get_category_list($connect);
+
+$smarty->assign('categories', $categories);
 $smarty->display('products/add.tpl');
 
 

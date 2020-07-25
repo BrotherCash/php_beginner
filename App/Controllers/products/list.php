@@ -1,12 +1,6 @@
 <?php
 
-$query = "SELECT * FROM products";
-$result = query($connect, $query);
-
-$products = [];
-while ($row = mysqli_fetch_assoc($result)) {
-    $products[] = $row;
-}
+$products = get_product_list($connect);
 
 $smarty->assign('products', $products);
 $smarty->display('products/index.tpl');
