@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.31, created on 2020-07-24 13:35:23
+<?php /* Smarty version 2.6.31, created on 2020-07-26 13:23:55
          compiled from products/form.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'default', 'products/form.tpl', 50, false),)), $this); ?>
@@ -21,7 +21,7 @@ smarty_core_load_plugins(array('plugins' => array(array('modifier', 'default', '
             <?php $_from = $this->_tpl_vars['categories']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
     foreach ($_from as $this->_tpl_vars['category']):
 ?>
-                <option value="<?php echo $this->_tpl_vars['category']['id']; ?>
+                <option <?php if ($this->_tpl_vars['product']['category_id'] == $this->_tpl_vars['category']['id']): ?>selected <?php endif; ?>value="<?php echo $this->_tpl_vars['category']['id']; ?>
 "><?php echo $this->_tpl_vars['category']['name']; ?>
 </option>
             <?php endforeach; endif; unset($_from); ?>

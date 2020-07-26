@@ -18,5 +18,8 @@ if (!empty($_POST)) {
         die('some insertion error');
     }
 }
+$categories = get_category_list($connect);
+
+$smarty->assign('categories', $categories);
 $smarty->assign('product', $product);
 $smarty->display('products/edit.tpl' );

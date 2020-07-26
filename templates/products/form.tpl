@@ -13,7 +13,7 @@
             <select name="category_id" id="">
                 <option value="0">Не выбрано</option>
             {foreach from=$categories item=category}
-                <option value="{$category.id}">{$category.name}</option>
+                <option {if $product.category_id == $category.id}selected {/if}value="{$category.id}">{$category.name}</option>
             {/foreach}
             </select>
         </label>

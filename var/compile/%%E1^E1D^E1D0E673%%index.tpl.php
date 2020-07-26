@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.31, created on 2020-07-23 06:50:36
+<?php /* Smarty version 2.6.31, created on 2020-07-26 13:16:38
          compiled from products/index.tpl */ ?>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => "header.tpl", 'smarty_include_vars' => array('h1' => "Список товаров")));
@@ -15,10 +15,10 @@ unset($_smarty_tpl_vars);
                     <tr>
                         <th>#</th>
                         <th>Название товара</th>
+                        <th>Категория</th>
                         <th>Артикул</th>
                         <th>Цена</th>
                         <th>Количество на складе</th>
-                        <th>Описание</th>
                         <th>&nbsp;</th>
                     </tr>
                 </thead>
@@ -29,22 +29,24 @@ unset($_smarty_tpl_vars);
                     <tr>
                         <td><?php echo $this->_tpl_vars['product']['id']; ?>
 </td>
-                        <td><?php echo $this->_tpl_vars['product']['name']; ?>
+                        <td style="width: 200px;">
+                            <strong><?php echo $this->_tpl_vars['product']['name']; ?>
+</strong>
+                                                    </td>
+                        <td><?php echo $this->_tpl_vars['product']['category_name']; ?>
 </td>
                         <td><?php echo $this->_tpl_vars['product']['article']; ?>
 </td>
                         <td><?php echo $this->_tpl_vars['product']['price']; ?>
 </td>
-                        <td><?php echo $this->_tpl_vars['product']['amount']; ?>
+                        <td style="width: 50px;"><?php echo $this->_tpl_vars['product']['amount']; ?>
 </td>
-                        <td><?php echo $this->_tpl_vars['product']['description']; ?>
-</td>
-                        <td>
+                        <td style="width: 100px;">
                             <a href='/products/edit?id=<?php echo $this->_tpl_vars['product']['id']; ?>
-'>Редактировать</a>
+'>Edit</a>
                             &nbsp;&nbsp;|&nbsp;&nbsp;
                             <form action="/products/delete" method="post" style="display: inline-block"><input type="hidden" name="id" value="<?php echo $this->_tpl_vars['product']['id']; ?>
-"><input type="submit" value="Удалить"></form>
+"><input type="submit" value="Remove"></form>
                         </td>
                     </tr>
                     <?php endforeach; endif; unset($_from); ?>

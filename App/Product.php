@@ -1,7 +1,7 @@
 <?php
 
 function get_product_list ($connect) {
-    $query = "SELECT * FROM products";
+    $query = "SELECT p.*, c.name AS category_name FROM products p LEFT JOIN categories c ON p.category_id = c.id";
     $result = query($connect, $query);
 
     $products = [];
@@ -14,7 +14,7 @@ function get_product_list ($connect) {
 
 function get_product_by_id ($connect, $id) {
 
-    $query = "SELECT * FROM products WHERE id = $id";
+    $query = "SELECT p.*, c.id AS category_id FROM products p LEFT JOIN categories c ON p.category_id = c.id WHERE p.id = $id";
     $result = query($connect, $query);
 
     $product = mysqli_fetch_assoc($result);
