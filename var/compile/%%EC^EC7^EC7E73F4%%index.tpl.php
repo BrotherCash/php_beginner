@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.31, created on 2020-07-24 13:07:21
+<?php /* Smarty version 2.6.31, created on 2020-07-27 10:36:14
          compiled from categories/index.tpl */ ?>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => "header.tpl", 'smarty_include_vars' => array('h1' => "Список категорий")));
@@ -6,16 +6,16 @@ $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
  ?>
 
-        <p>
-            <a href="/categories/add">Добавить</a>
+        <p class="mb-4">
+            <a class="btn btn-outline-primary font-weight-bold" href="/categories/add">Добавить</a>
         </p>
         <p>
-            <table class="table">
+            <table class="table table-striped">
                 <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Название категории</th>
-                        <th>&nbsp;</th>
+                    <tr class="table-primary align-top">
+                        <th scope="col">#</th>
+                        <th scope="col">Название категории</th>
+                        <th scope="col">&nbsp;</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -23,16 +23,16 @@ unset($_smarty_tpl_vars);
     foreach ($_from as $this->_tpl_vars['category']):
 ?>
                     <tr>
-                        <td><?php echo $this->_tpl_vars['category']['id']; ?>
-</td>
+                        <th scope="row"><?php echo $this->_tpl_vars['category']['id']; ?>
+</th>
                         <td><?php echo $this->_tpl_vars['category']['name']; ?>
 </td>
                         <td>
-                            <a href='/categories/edit?id=<?php echo $this->_tpl_vars['category']['id']; ?>
-'>Редактировать</a>
+                            <a class="btn btn-success" href='/categories/edit?id=<?php echo $this->_tpl_vars['category']['id']; ?>
+'>Edit</a>
                             &nbsp;&nbsp;|&nbsp;&nbsp;
                             <form action="/categories/delete" method="post" style="display: inline-block"><input type="hidden" name="id" value="<?php echo $this->_tpl_vars['category']['id']; ?>
-"><input type="submit" value="Удалить"></form>
+"><input type="submit"  class="btn btn-danger font-weight-bold" value="X"></form>
                         </td>
                     </tr>
                     <?php endforeach; endif; unset($_from); ?>

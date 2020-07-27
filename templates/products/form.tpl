@@ -1,52 +1,40 @@
-<form method="post" action="" class="form f400p">
+<form method="post" action="" class="narrow-form">
     <input type="hidden" name="id" value="{$product.id}">
-    <div class="form-element">
-        <label>
-            <span class="label">Название товара:</span>
-            <input type="text" name="name" required" value="{$product.name}">
-        </label>
+    <div class="mb-3">
+        <label for="name" class="form-label">Название товара:</label>
+        <input type="text" name="name" id="name" class="form-control" required" value="{$product.name}">
     </div>
 
-    <div class="form-element">
-        <label>
-            <span class="label">Категория товара:</span>
-            <select name="category_id" id="">
-                <option value="0">Не выбрано</option>
+    <div class="mb-3">
+        <label for="category_id" class="form-label">Категория товара:</label>
+        <select name="category_id" id="category_id" class="form-select">
+            <option value="0">Не выбрано</option>
             {foreach from=$categories item=category}
-                <option {if $product.category_id == $category.id}selected {/if}value="{$category.id}">{$category.name}</option>
+            <option {if $product.category_id == $category.id}selected {/if}value="{$category.id}">{$category.name}</option>
             {/foreach}
-            </select>
-        </label>
+        </select>
     </div>
 
-    <div class="form-element">
-        <label>
-            <span class="label">Артикул:</span>
-            <input type="text" name="article" required value="{$product.article}">
-        </label>
+    <div class="mb-3">
+        <label for="article" class="form-label">Артикул:</label>
+        <input type="text" name="article" id="article" class="form-control" required value="{$product.article}">
     </div>
 
-    <div class="form-element">
-        <label>
-            <span class="label">Цена:</span>
-            <input type="number" name="price" required value="{$product.price}">
-        </label>
+    <div class="mb-3">
+        <label for="price" class="form-label">Цена:</label>
+        <input type="number" name="price" id="price" class="form-control" required value="{$product.price}">
     </div>
 
-    <div class="form-element">
-        <label>
-            <span class="label">Количество на складе:</span>
-            <input type="number" name="amount" value="{$product.amount}">
-        </label>
+    <div class="mb-3">
+        <label for="amount" class="form-label">Количество на складе:</label>
+        <input type="number" name="amount" id="amount" class="form-control" value="{$product.amount}">
     </div>
 
-    <div class="form-element">
-        <label>
-            <span class="label">Описание товара:</span>
-            <textarea name="description" cols="30" rows="10" required>{$product.description}</textarea>
-        </label>
+    <div class="mb-3">
+        <label for="description" class="form-label">Описание товара:</label>
+        <textarea name="description" id="description" class="form-control" rows="4" required>{$product.description}</textarea>
     </div>
-    <div class="form-element">
-        <input type="submit" value="{$submit_name|default:'Сохранить'}">
-    </div>
+
+    <input type="submit" class="btn btn-primary" value="{$submit_name|default:'Сохранить'}">
+
 </form>

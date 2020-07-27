@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.31, created on 2020-07-26 13:16:38
+<?php /* Smarty version 2.6.31, created on 2020-07-27 10:37:12
          compiled from products/index.tpl */ ?>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => "header.tpl", 'smarty_include_vars' => array('h1' => "Список товаров")));
@@ -6,20 +6,20 @@ $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
  ?>
 
-        <p>
-            <a href="/products/add">Добавить</a>
+        <p class="mb-4">
+            <a class="btn btn-outline-primary font-weight-bold" href="/products/add">Добавить</a>
         </p>
         <p>
-            <table class="table">
+            <table class="table table-striped">
                 <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Название товара</th>
-                        <th>Категория</th>
-                        <th>Артикул</th>
-                        <th>Цена</th>
-                        <th>Количество на складе</th>
-                        <th>&nbsp;</th>
+                    <tr class="table-primary align-top">
+                        <th scope="col">#</th>
+                        <th scope="col">Название товара</th>
+                        <th scope="col">Категория</th>
+                        <th scope="col">Артикул</th>
+                        <th scope="col">Цена</th>
+                        <th scope="col">Количество <br> на складе</th>
+                        <th scope="col">&nbsp;</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -27,9 +27,9 @@ unset($_smarty_tpl_vars);
     foreach ($_from as $this->_tpl_vars['product']):
 ?>
                     <tr>
-                        <td><?php echo $this->_tpl_vars['product']['id']; ?>
-</td>
-                        <td style="width: 200px;">
+                        <th scope="row"><?php echo $this->_tpl_vars['product']['id']; ?>
+</th>
+                        <td>
                             <strong><?php echo $this->_tpl_vars['product']['name']; ?>
 </strong>
                                                     </td>
@@ -39,14 +39,14 @@ unset($_smarty_tpl_vars);
 </td>
                         <td><?php echo $this->_tpl_vars['product']['price']; ?>
 </td>
-                        <td style="width: 50px;"><?php echo $this->_tpl_vars['product']['amount']; ?>
+                        <td><?php echo $this->_tpl_vars['product']['amount']; ?>
 </td>
-                        <td style="width: 100px;">
-                            <a href='/products/edit?id=<?php echo $this->_tpl_vars['product']['id']; ?>
+                        <td>
+                            <a class="btn btn-success" href='/products/edit?id=<?php echo $this->_tpl_vars['product']['id']; ?>
 '>Edit</a>
                             &nbsp;&nbsp;|&nbsp;&nbsp;
-                            <form action="/products/delete" method="post" style="display: inline-block"><input type="hidden" name="id" value="<?php echo $this->_tpl_vars['product']['id']; ?>
-"><input type="submit" value="Remove"></form>
+                            <form action="/products/delete" method="post"><input type="hidden" name="id" value="<?php echo $this->_tpl_vars['product']['id']; ?>
+"><input type="submit" class="btn btn-danger font-weight-bold" value="X"></form>
                         </td>
                     </tr>
                     <?php endforeach; endif; unset($_from); ?>

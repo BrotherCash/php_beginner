@@ -1,7 +1,7 @@
 {include file="header.tpl" h1="Редактирование товара"}
 
-<p>
-    <a href="/products/list">Список товаров</a>
+<p class="mb-4">
+    <a class="btn btn-outline-primary font-weight-bold" href="/products/list">Список товаров</a>
 </p>
 
 <p>

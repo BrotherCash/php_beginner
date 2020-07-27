@@ -1,2 +1,3 @@
-/.idea/
+.idea
+var/compile
 /var/compile/

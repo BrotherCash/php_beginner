@@ -1,12 +1,9 @@
-<form method="post" action="" class="form f400p">
+<form method="post" action="" class="narrow-form">
     <input type="hidden" name="id" value="{$category.id}">
-    <div class="form-element">
-        <label>
-            <span class="label">Название категории:</span>
-            <input type="text" name="name" required" value="{$category.name}" autofocus>
-        </label>
+    <div class="mb-3">
+        <label for="name" class="form-label">Название категории:</label>
+        <input type="text" name="name" id="name" class="form-control" required" value="{$category.name}" autofocus>
     </div>
-    <div class="form-element">
-        <input type="submit" value="{$submit_name|default:'Сохранить'}">
-    </div>
+
+    <input type="submit" class="btn btn-primary" value="{$submit_name|default:'Сохранить'}">
 </form>

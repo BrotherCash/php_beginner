@@ -1,67 +1,55 @@
-<?php /* Smarty version 2.6.31, created on 2020-07-26 13:23:55
+<?php /* Smarty version 2.6.31, created on 2020-07-27 10:17:04
          compiled from products/form.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('modifier', 'default', 'products/form.tpl', 50, false),)), $this); ?>
-<form method="post" action="" class="form f400p">
+smarty_core_load_plugins(array('plugins' => array(array('modifier', 'default', 'products/form.tpl', 38, false),)), $this); ?>
+<form method="post" action="" class="product-form">
     <input type="hidden" name="id" value="<?php echo $this->_tpl_vars['product']['id']; ?>
 ">
-    <div class="form-element">
-        <label>
-            <span class="label">Название товара:</span>
-            <input type="text" name="name" required" value="<?php echo $this->_tpl_vars['product']['name']; ?>
+    <div class="mb-3">
+        <label for="name" class="form-label">Название товара:</label>
+        <input type="text" name="name" id="name" class="form-control" required" value="<?php echo $this->_tpl_vars['product']['name']; ?>
 ">
-        </label>
     </div>
 
-    <div class="form-element">
-        <label>
-            <span class="label">Категория товара:</span>
-            <select name="category_id" id="">
-                <option value="0">Не выбрано</option>
+    <div class="mb-3">
+        <label for="category_id" class="form-label">Категория товара:</label>
+        <select name="category_id" id="category_id" class="form-select">
+            <option value="0">Не выбрано</option>
             <?php $_from = $this->_tpl_vars['categories']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
     foreach ($_from as $this->_tpl_vars['category']):
 ?>
-                <option <?php if ($this->_tpl_vars['product']['category_id'] == $this->_tpl_vars['category']['id']): ?>selected <?php endif; ?>value="<?php echo $this->_tpl_vars['category']['id']; ?>
+            <option <?php if ($this->_tpl_vars['product']['category_id'] == $this->_tpl_vars['category']['id']): ?>selected <?php endif; ?>value="<?php echo $this->_tpl_vars['category']['id']; ?>
 "><?php echo $this->_tpl_vars['category']['name']; ?>
 </option>
             <?php endforeach; endif; unset($_from); ?>
-            </select>
-        </label>
+        </select>
     </div>
 
-    <div class="form-element">
-        <label>
-            <span class="label">Артикул:</span>
-            <input type="text" name="article" required value="<?php echo $this->_tpl_vars['product']['article']; ?>
+    <div class="mb-3">
+        <label for="article" class="form-label">Артикул:</label>
+        <input type="text" name="article" id="article" class="form-control" required value="<?php echo $this->_tpl_vars['product']['article']; ?>
 ">
-        </label>
     </div>
 
-    <div class="form-element">
-        <label>
-            <span class="label">Цена:</span>
-            <input type="number" name="price" required value="<?php echo $this->_tpl_vars['product']['price']; ?>
+    <div class="mb-3">
+        <label for="price" class="form-label">Цена:</label>
+        <input type="number" name="price" id="price" class="form-control" required value="<?php echo $this->_tpl_vars['product']['price']; ?>
 ">
-        </label>
     </div>
 
-    <div class="form-element">
-        <label>
-            <span class="label">Количество на складе:</span>
-            <input type="number" name="amount" value="<?php echo $this->_tpl_vars['product']['amount']; ?>
+    <div class="mb-3">
+        <label for="amount" class="form-label">Количество на складе:</label>
+        <input type="number" name="amount" id="amount" class="form-control" value="<?php echo $this->_tpl_vars['product']['amount']; ?>
 ">
-        </label>
     </div>
 
-    <div class="form-element">
-        <label>
-            <span class="label">Описание товара:</span>
-            <textarea name="description" cols="30" rows="10" required><?php echo $this->_tpl_vars['product']['description']; ?>
+    <div class="mb-3">
+        <label for="description" class="form-label">Описание товара:</label>
+        <textarea name="description" id="description" class="form-control" rows="4" required><?php echo $this->_tpl_vars['product']['description']; ?>
 </textarea>
-        </label>
     </div>
-    <div class="form-element">
-        <input type="submit" value="<?php echo ((is_array($_tmp=@$this->_tpl_vars['submit_name'])) ? $this->_run_mod_handler('default', true, $_tmp, 'Сохранить') : smarty_modifier_default($_tmp, 'Сохранить')); ?>
+
+    <input type="submit" class="btn btn-primary" value="<?php echo ((is_array($_tmp=@$this->_tpl_vars['submit_name'])) ? $this->_run_mod_handler('default', true, $_tmp, 'Сохранить') : smarty_modifier_default($_tmp, 'Сохранить')); ?>
 ">
-    </div>
+
 </form>

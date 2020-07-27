@@ -1,26 +1,26 @@
 {include file="header.tpl" h1="Список товаров"}
 
-        <p>
-            <a href="/products/add">Добавить</a>
+        <p class="mb-4">
+            <a class="btn btn-outline-primary font-weight-bold" href="/products/add">Добавить</a>
         </p>
         <p>
-            <table class="table">
+            <table class="table table-striped">
                 <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Название товара</th>
-                        <th>Категория</th>
-                        <th>Артикул</th>
-                        <th>Цена</th>
-                        <th>Количество на складе</th>
-                        <th>&nbsp;</th>
+                    <tr class="table-primary align-top">
+                        <th scope="col">#</th>
+                        <th scope="col">Название товара</th>
+                        <th scope="col">Категория</th>
+                        <th scope="col">Артикул</th>
+                        <th scope="col">Цена</th>
+                        <th scope="col">Количество <br> на складе</th>
+                        <th scope="col">&nbsp;</th>
                     </tr>
                 </thead>
                 <tbody>
                     {foreach from=$products item=product}
                     <tr>
-                        <td>{$product.id}</td>
-                        <td style="width: 200px;">
+                        <th scope="row">{$product.id}</th>
+                        <td>
                             <strong>{$product.name}</strong>
                             {*
                             <br>
@@ -30,11 +30,11 @@
                         <td>{$product.category_name}</td>
                         <td>{$product.article}</td>
                         <td>{$product.price}</td>
-                        <td style="width: 50px;">{$product.amount}</td>
-                        <td style="width: 100px;">
-                            <a href='/products/edit?id={$product.id}'>Edit</a>
+                        <td>{$product.amount}</td>
+                        <td>
+                            <a class="btn btn-success" href='/products/edit?id={$product.id}'>Edit</a>
                             &nbsp;&nbsp;|&nbsp;&nbsp;
-                            <form action="/products/delete" method="post" style="display: inline-block"><input type="hidden" name="id" value="{$product.id}"><input type="submit" value="Remove"></form>
+                            <form action="/products/delete" method="post"><input type="hidden" name="id" value="{$product.id}"><input type="submit" class="btn btn-danger font-weight-bold" value="X"></form>
                         </td>
                     </tr>
                     {/foreach}
