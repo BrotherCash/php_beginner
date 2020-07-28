@@ -1,10 +1,10 @@
 {include file="header.tpl" h1="Список категорий"}
 
         <p class="mb-4">
-            <a class="btn btn-outline-primary font-weight-bold" href="/categories/add">Добавить</a>
+            <a class="btn btn-outline-primary font-weight-bold shadow" href="/categories/add">Добавить</a>
         </p>
         <p>
-            <table class="table table-striped">
+            <table class="table table-striped shadow-sm">
                 <thead>
                     <tr class="table-primary align-top">
                         <th scope="col">#</th>

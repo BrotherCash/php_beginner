@@ -1,10 +1,23 @@
 {include file="header.tpl" h1="Список товаров"}
 
         <p class="mb-4">
-            <a class="btn btn-outline-primary font-weight-bold" href="/products/add">Добавить</a>
+            <a class="btn btn-outline-primary font-weight-bold shadow " href="/products/add">Добавить</a>
         </p>
         <p>
-            <table class="table table-striped">
+            {if $pages_count > 1}
+            <nav>
+                <ul class="pagination">
+                    {section name=pagination loop=$pages_count}
+                        <li class="page-item shadow-sm{if $smarty.get.p == $smarty.section.pagination.iteration || ($smarty.get.p == '' && $smarty.section.pagination.iteration == 1)} active{/if}">
+                            <a class="page-link" href="{$smarty.server.PATH_INFO}?p={$smarty.section.pagination.iteration}">
+                                {$smarty.section.pagination.iteration}
+                            </a>
+                        </li>
+                    {/section}
+                </ul>
+            </nav>
+            {/if}
+            <table class="table table-striped shadow-sm">
                 <thead>
                     <tr class="table-primary align-top">
                         <th scope="col">#</th>

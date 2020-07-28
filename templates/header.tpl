@@ -11,26 +11,22 @@
 </head>
 <body>
 <div class="site-wrapper container">
-    <ul class="top-menu nav rounded shadow font-weight-bold mb-5">
+    <ul class="top-menu nav shadow-sm font-weight-bold mb-5">
         <li class="nav-item">
-            <a class="nav-link" href="/products/">Товары</a>
+            <a class="nav-link" href="/products/list">Товары</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/categories/">Категории</a>
+            <a class="nav-link" href="/categories/list">Категории</a>
         </li>
     </ul>
     <div class="row">
         <div class="col-3">
             <ul class="nav flex-column nav-pills aside-menu font-weight-bold">
+                {foreach from=$categories_shared item=category}
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Категория 1</a>
+                    <a class="nav-link{if $category.id == $current_category.id} active shadow{/if}" href="/categories/view?id={$category.id}">{$category.name}</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Категория 2</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Категория 3</a>
-                </li>
+                {/foreach}
             </ul>
         </div>
         <div class="col-9">

@@ -1,7 +1,7 @@
 {include file="header.tpl" h1="Добавление категории"}
 
 <p class="mb-4">
-    <a class="btn btn-outline-primary font-weight-bold" href="/categories/list">Список категорий</a>
+    <a class="btn btn-outline-primary font-weight-bold shadow" href="/categories/list">Список категорий</a>
 </p>
 
 <p>
