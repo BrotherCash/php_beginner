@@ -1,99 +1,106 @@
 <?php
 
-function get_product_list ($connect, int $limit = 100, int $offset = 0) {
-    $query = "SELECT p.*, c.name AS category_name FROM products p LEFT JOIN categories c ON p.category_id = c.id LIMIT $limit OFFSET $offset";
-    $result = query($connect, $query);
+class Product
+{
 
-    $products = [];
-    while ($row = mysqli_fetch_assoc($result)) {
-        $products[] = $row;
+    public static function getList(int $limit = 100, int $offset = 0)
+    {
+        $query = "SELECT p.*, c.name AS category_name FROM products p LEFT JOIN categories c ON p.category_id = c.id LIMIT $limit OFFSET $offset";
+        $result = Db::query($query);
+
+        $products = [];
+        while ($row = mysqli_fetch_assoc($result)) {
+            $products[] = $row;
+        }
+
+        return $products;
     }
 
-    return $products;
-}
+    public static function getListCount()
+    {
+        $query = "SELECT COUNT(*) as count FROM products p LEFT JOIN categories c ON p.category_id = c.id";
+        $result = Db::query($query);
 
-function get_product_list_count($connect) {
-    $query = "SELECT COUNT(*) as count FROM products p LEFT JOIN categories c ON p.category_id = c.id";
-    $result = query($connect, $query);
+        $row = mysqli_fetch_assoc($result);
 
-    $row = mysqli_fetch_assoc($result);
-
-    return (int) ($row['count'] ?? 0);
-}
-
-function get_product_list_by_category($connect, $category_id) {
-    $query = "SELECT p.*, c.name AS category_name FROM products p LEFT JOIN categories c ON p.category_id = c.id WHERE p.category_id = $category_id";
-    $result = query($connect, $query);
-
-    $products = [];
-    while ($row = mysqli_fetch_assoc($result)) {
-        $products[] = $row;
+        return (int)($row['count'] ?? 0);
     }
 
-    return $products;
+    public static function getListByCategory($category_id)
+    {
+        $query = "SELECT p.*, c.name AS category_name FROM products p LEFT JOIN categories c ON p.category_id = c.id WHERE p.category_id = $category_id";
+        $result = Db::query($query);
 
-}
+        $products = [];
+        while ($row = mysqli_fetch_assoc($result)) {
+            $products[] = $row;
+        }
 
-function get_product_by_id ($connect, $id) {
-
-    $query = "SELECT p.*, c.id AS category_id FROM products p LEFT JOIN categories c ON p.category_id = c.id WHERE p.id = $id";
-    $result = query($connect, $query);
-
-    $product = mysqli_fetch_assoc($result);
-    if (is_null($product)) {
-        $product = [];
+        return $products;
     }
 
-    return $product;
+    public static function getById($id)
+    {
+        $query = "SELECT p.*, c.id AS category_id FROM products p LEFT JOIN categories c ON p.category_id = c.id WHERE p.id = $id";
+        $result = Db::query($query);
+
+        $product = mysqli_fetch_assoc($result);
+        if (is_null($product)) {
+            $product = [];
+        }
+
+        return $product;
+    }
+
+    public static function updateById($id, $product)
+    {
+        $name = $product['name'] ?? '';
+        $article = $product['article'] ?? '';
+        $price = $product['price'] ?? '';
+        $amount = $product['amount'] ?? '';
+        $description = $product['description'] ?? '';
+        $category_id = $product['category_id'] ?? '';
+
+        $query = "UPDATE products SET name = '$name', article = '$article', price = '$price', amount = '$amount', description = '$description', category_id = '$category_id' WHERE id = $id";
+        Db::query($query);
+
+        return Db::affectedRows();
+    }
+
+    public static function add($product)
+    {
+        $name = $product['name'] ?? '';
+        $article = $product['article'] ?? '';
+        $price = $product['price'] ?? '';
+        $amount = $product['amount'] ?? '';
+        $description = $product['description'] ?? '';
+        $category_id = $product['category_id'] ?? '';
+
+        $query = "INSERT INTO products(name, article, price, amount, description, category_id) VALUES ('$name', '$article', '$price', '$amount', '$description', '$category_id')";
+        Db::query($query);
+
+        return Db::affectedRows();
+    }
+
+    public static function deleteById($id)
+    {
+        $query = "DELETE FROM products WHERE id = $id";
+        Db::query($query);
+
+        return Db::affectedRows();
+    }
+
+    public static function getDataFromPost()
+    {
+        return [
+            'id'          => $_POST['id'] ?? '',
+            'name'        => $_POST['name'] ?? '',
+            'article'     => $_POST['article'] ?? '',
+            'price'       => $_POST['price'] ?? '',
+            'amount'      => $_POST['amount'] ?? '',
+            'description' => $_POST['description'] ?? '',
+            'category_id' => $_POST['category_id'] ?? '',
+        ];
+    }
 
 }
-
-function update_product_by_id ($connect, $id, $product) {
-    $name = $product['name'] ?? '';
-    $article = $product['article'] ?? '';
-    $price = $product['price'] ?? '';
-    $amount = $product['amount'] ?? '';
-    $description = $product['description'] ?? '';
-    $category_id = $product['category_id'] ?? '';
-
-    $query = "UPDATE products SET name = '$name', article = '$article', price = '$price', amount = '$amount', description = '$description', category_id = '$category_id' WHERE id = $id";
-    query($connect, $query);
-
-    return mysqli_affected_rows($connect);
-
-}
-
-function add_product ($connect, $product) {
-    $name = $product['name'] ?? '';
-    $article = $product['article'] ?? '';
-    $price = $product['price'] ?? '';
-    $amount = $product['amount'] ?? '';
-    $description = $product['description'] ?? '';
-    $category_id = $product['category_id'] ?? '';
-
-    $query = "INSERT INTO products(name, article, price, amount, description, category_id) VALUES ('$name', '$article', '$price', '$amount', '$description', '$category_id')";
-    query($connect, $query);
-
-    return mysqli_affected_rows($connect);
-}
-
-function delete_product_by_id ($connect, $id) {
-
-    $query = "DELETE FROM products WHERE id = $id";
-    query($connect, $query);
-
-    return mysqli_affected_rows($connect);
-}
-
-function get_product_from_post() {
-    return [
-        'id'          => $_POST['id'] ?? '',
-        'name'        => $_POST['name'] ?? '',
-        'article'     => $_POST['article'] ?? '',
-        'price'       => $_POST['price'] ?? '',
-        'amount'      => $_POST['amount'] ?? '',
-        'description' => $_POST['description'] ?? '',
-        'category_id' => $_POST['category_id'] ?? '',
-    ];
-}
-

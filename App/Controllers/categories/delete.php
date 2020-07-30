@@ -7,7 +7,7 @@ if (!$id) {
     die('Something is wrong with id');
 }
 
-$deleted = delete_category_by_id($connect, $id);
+$deleted = Category::deleteById($id);
 
 if ($deleted) {
     header('location: /categories/list');
