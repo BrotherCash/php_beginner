@@ -1,19 +1,18 @@
 <?php
 
-$id = $_GET['id'];
-$id = (int) $id;
+$id = Request::getIntFromGet('id');
 $category = [];
 
 if ($id) {
     $category = Category::getById($id);
 }
 
-if (!empty($_POST)) {
+if (Request::isPost()) {
     $category = Category::getDataFromPost();
     $edited = Category::updateById($id, $category);
 
     if ($edited) {
-        header('location: /categories/list');
+        Response::redirect('/categories/list');
     } else {
         die('some insertion error');
     }
