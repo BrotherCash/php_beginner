@@ -1,4 +1,4 @@
-<form method="post" action="" class="narrow-form">
+<form method="post" action="" class="narrow-form" enctype="multipart/form-data">
     <input type="hidden" name="id" value="{$product.id}">
     <div class="mb-3">
         <label for="name" class="form-label">Название товара:</label>
@@ -14,6 +14,59 @@
             {/foreach}
         </select>
     </div>
+
+    <div class="mb-3">
+        <label for="images" class="form-label">Фото товара:</label>
+        <input type="file" name="images[]" id="images" multiple accept="image/*" class="form-control shadow-sm">
+    </div>
+
+    {if $product.images}
+        <div class="form-group d-flex flex-wrap">
+            {foreach from=$product.images item=image}
+            <div class="card d-flex flex-column justify-content-between" style="width: 90px;">
+                <img src="{$image.path}" class="card-img-top" alt="{$image.name}">
+                <span style="flex: auto;"></span>
+                <div class="card-body" style="flex: none;">
+                    <button class="btn btn-danger btn-sm" data-image-id="{$image.id}" onclick="return deleteImage(this)">Remove</button>
+                </div>
+            </div>
+            {/foreach}
+        </div>
+    {literal}
+        <script>
+            function deleteImage(button) {
+                let imageId = button.dataset.imageId;
+                imageId = parseInt(imageId);
+                if (!imageId) {
+                    alert('Проблема с image_id');
+                }
+
+                let url = '/products/delete_image';
+
+                const formData = new FormData();
+                formData.append('product_image_id', imageId);
+
+                fetch(url, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then((response) => {
+                    response.text()
+                    .then((text) => {
+                        if (text.indexOf('error') > 0) {
+                            alert('Ошибка при удалении');
+                        } else {
+                            document.location.reload();
+                        }
+                        console.log(text);
+                    })
+                });
+
+                return false;
+            }
+        </script>
+    {/literal}
+    {/if}
 
     <div class="mb-3">
         <label for="article" class="form-label">Артикул:</label>
@@ -38,3 +91,4 @@
     <input type="submit" class="btn btn-primary shadow" value="{$submit_name|default:'Сохранить'}">
 
 </form>
+

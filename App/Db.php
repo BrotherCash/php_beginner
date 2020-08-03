@@ -91,7 +91,7 @@ class Db
         return static::affectedRows();
     }
 
-    public static function insert (string $table_name, array $fields)
+    public static function insert(string $table_name, array $fields)
     {
         $field_names = [];
         $field_values = [];
@@ -108,10 +108,10 @@ class Db
 
         static::query($query);
 
-        return static::affectedRows();
+        return static::lastInsertId();
     }
 
-    public static function update (string $table_name, array $fields, string $where)
+    public static function update(string $table_name, array $fields, string $where)
     {
         $set_fields = [];
 

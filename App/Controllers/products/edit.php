@@ -1,21 +1,69 @@
 <?php
 
-$id = Request::getIntFromGet('id');
+$productId = Request::getIntFromGet('id');
 $product = [];
 
-if ($id) {
-    $product = Product::getById($id);
+if ($productId) {
+    $product = Product::getById($productId);
 }
 
 if (Request::isPost()) {
-    $product = Product::getDataFromPost();
-    $edited = Product::updateById($id, $product);
+    $productData = Product::getDataFromPost();
+    $edited = Product::updateById($productId, $productData);
 
-    if ($edited) {
-        Response::redirect('/products/list');
-    } else {
-        die('some insertion error');
+    $edited = Product::updateById($productId, $productData);
+
+    $uploadImages = $_FILES['images'] ?? [];
+
+    $imageNames = $uploadImages['name'];
+    $imageTmpNames = $uploadImages['tmp_name'];
+
+//    $currentImagesNames = [];
+//    foreach ($product['images'] as $image) {
+//        $currentImagesNames[] = $image['name'];
+//    }
+//
+//    $diffImageNames = array_diff($imageNames, $currentImagesNames);
+
+    $path = APP_UPLOAD_PRODUCT_DIR . '/' . $productId;
+
+    if (!file_exists($path)) {
+        mkdir($path);
     }
+
+    for ($i = 0; $i < count($imageNames); $i++) {
+        $imageName = basename($imageNames[$i]);
+        $imageTmpName = $imageTmpNames[$i];
+
+        $filename = $imageName;
+        $counter = 0;
+        while (true) {
+            $duplicateImage = ProductImage::findByFilenameInProduct($productId, $filename);
+            if (empty($duplicateImage)) {
+                break;
+            }
+
+            $info = pathinfo($imageName);
+
+            $filename = $info['filename'];
+            $filename .= '_' . $counter . '.' . $info['extension'];
+
+            $counter++;
+        }
+
+
+        $imagePath = $path . '/' . $filename;
+
+        move_uploaded_file($imageTmpName, $imagePath);
+
+        ProductImage::add([
+            'product_id' => $productId,
+            'name' => $filename,
+            'path' => str_replace(APP_PUBLIC_DIR, '',$imagePath),
+        ]);
+    }
+
+    Response::redirect('/products/list');
 }
 $categories = Category::getList();
 

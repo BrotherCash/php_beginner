@@ -3,7 +3,7 @@
         <p class="mb-4">
             <a class="btn btn-outline-primary font-weight-bold shadow " href="/products/add">Добавить</a>
         </p>
-        <p>
+        <div>
             {if $pages_count > 1}
             <nav>
                 <ul class="pagination">
@@ -32,14 +32,18 @@
                 <tbody>
                     {foreach from=$products item=product}
                     <tr>
-                        <th scope="row">{$product.id}</th>
                         <td>
                             <strong>{$product.name}</strong>
-                            {*
-                            <br>
-                            <p><small>{$product.description}</small></p>
-                            *}
+                            {if $product.images}
+                                <br>
+                                <div class="product-images-wrap shadow mt-2">
+                                    {foreach from=$product.images item=image}
+                                        <img src="{$image.path}" alt="{$image.name}">
+                                    {/foreach}
+                                </div>
+                            {/if}
                         </td>
+                        <th scope="row">{$product.id}</th>
                         <td>{$product.category_name}</td>
                         <td>{$product.article}</td>
                         <td>{$product.price}</td>
@@ -53,7 +57,7 @@
                     {/foreach}
                 </tbody>
             </table>
-        </p>
-    </div>
+        </div>
+
 
 {include file="bottom.tpl"}
