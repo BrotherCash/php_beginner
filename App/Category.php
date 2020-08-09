@@ -24,7 +24,7 @@ class Category
         return Db::update('categories', $category, "id = $id");
     }
 
-    public static function add($category)
+    public static function add(array $category)
     {
         if (isset($category['id'])) {
             unset($category['id']);
@@ -43,6 +43,12 @@ class Category
             'id'   => Request::getIntFromPost('id', false),
             'name' => Request::getStrFromPost('name'),
         ];
+    }
+
+    public static function getByName(string $categoryName)
+    {
+        $query = "SELECT * FROM categories WHERE name = '$categoryName'";
+        return Db::fetchRow($query);
     }
 
 }

@@ -16,6 +16,11 @@
     </div>
 
     <div class="mb-3">
+        <label for="image_url" class="form-label">Ссылка на изображение:</label>
+        <input type="text" name="image_url" id="image_url" class="form-control shadow-sm">
+    </div>
+
+    <div class="mb-3">
         <label for="images" class="form-label">Фото товара:</label>
         <input type="file" name="images[]" id="images" multiple accept="image/*" class="form-control shadow-sm">
     </div>
@@ -85,7 +90,7 @@
 
     <div class="mb-3">
         <label for="description" class="form-label">Описание товара:</label>
-        <textarea name="description" id="description" class="form-control shadow-sm" rows="4" required>{$product.description}</textarea>
+        <textarea name="description" id="description" class="form-control shadow-sm" rows="4">{$product.description}</textarea>
     </div>
 
     <input type="submit" class="btn btn-primary shadow" value="{$submit_name|default:'Сохранить'}">

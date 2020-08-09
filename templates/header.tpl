@@ -13,10 +13,13 @@
 <div class="site-wrapper container">
     <ul class="top-menu nav shadow-sm font-weight-bold mb-5">
         <li class="nav-item">
-            <a class="nav-link" href="/products/list">Товары</a>
+            <a class="nav-link" href="/products/">Товары</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/categories/list">Категории</a>
+            <a class="nav-link" href="/categories/">Категории</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/import/index">Импорт товаров</a>
         </li>
     </ul>
     <div class="row">
