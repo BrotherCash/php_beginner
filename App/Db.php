@@ -144,4 +144,10 @@ class Db
         return mysqli_insert_id($connect);
     }
 
+    public static function escape(string $value)
+    {
+        $connect = static::getConnect();
+        return mysqli_real_escape_string($connect, $value);
+    }
+
 }

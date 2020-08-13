@@ -31,8 +31,9 @@
                 </thead>
                 <tbody>
                     {foreach from=$products item=product}
-                    <tr>
-                        <td>
+                        <tr>
+                            <th scope="row">{$product.id}</th>
+                            <td>
                             <strong>{$product.name}</strong>
                             {if $product.images}
                                 <br>
@@ -43,7 +44,6 @@
                                 </div>
                             {/if}
                         </td>
-                        <th scope="row">{$product.id}</th>
                         <td>{$product.category_name}</td>
                         <td>{$product.article}</td>
                         <td>{$product.price}</td>

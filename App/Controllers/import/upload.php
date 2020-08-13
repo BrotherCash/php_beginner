@@ -29,6 +29,8 @@ $settings = [
     6 => 'image_urls',
 ];
 
+$mainField = 'article';
+
 if ($withHeaders) {
     $headers = fgetcsv($file);
 }
@@ -40,11 +42,11 @@ while ($row = fgetcsv($file)) {
     }
 
     $product = [
-        'name' => $productData['name'],
-        'article' => $productData['article'],
-        'price' => $productData['price'],
-        'amount' => $productData['amount'],
-        'description' => $productData['description'],
+        'name'        => Db::escape($productData['name']),
+        'article'     => Db::escape($productData['article']),
+        'price'       => Db::escape($productData['price']),
+        'amount'      => Db::escape($productData['amount']),
+        'description' => Db::escape($productData['description']),
     ];
 
     $categoryName = $productData['category_name'];
@@ -61,14 +63,19 @@ while ($row = fgetcsv($file)) {
 
     $product['category_id'] = $categoryId;
 
-    $productId = Product::add($product);
+    $targetProduct = Product::getByField($mainField, $product[$mainField]);
+    if (empty($targetProduct)) {
+        $productId = Product::add($product);
+    } else {
+        $productId = $targetProduct['id'];
+        $targetProduct = array_merge($targetProduct, $product);
+        Product::updateById($productId, $targetProduct);
+    }
 
     $productData['image_urls'] = explode("\n", $productData['image_urls']);
-
     $productData['image_urls'] = array_map(function($item){
         return trim($item);
     }, $productData['image_urls']);
-
     $productData['image_urls'] = array_filter($productData['image_urls'], function($item){
         return !empty($item);
     });
@@ -76,10 +83,9 @@ while ($row = fgetcsv($file)) {
     foreach ($productData['image_urls'] as $imageUrl) {
         ProductImage::uploadImageByUrl($productId, $imageUrl);
     }
-
-
-    echo "<pre>"; var_dump($productData); echo "</pre>";
 }
+
+Response::redirect('/products/');
 
 
 

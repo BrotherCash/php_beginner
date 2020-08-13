@@ -3,6 +3,12 @@
 class Product
 {
 
+    /**
+     * @param int $limit
+     * @param int $offset
+     * @return array
+     */
+
     public static function getList(int $limit = 100, int $offset = 0)
     {
         $query = "SELECT p.*, c.name AS category_name FROM products p LEFT JOIN categories c ON p.category_id = c.id LIMIT $limit OFFSET $offset";
@@ -17,17 +23,27 @@ class Product
         return $products;
     }
 
-    public static function getListCount()
-    {
-        $query = "SELECT COUNT(*) as count FROM products p LEFT JOIN categories c ON p.category_id = c.id";
-        return Db::fetchOne($query);
-    }
-
     public static function getListByCategory($category_id)
     {
         $query = "SELECT p.*, c.name AS category_name FROM products p LEFT JOIN categories c ON p.category_id = c.id WHERE p.category_id = $category_id";
 
-        return Db::fetchAll($query);
+        $products =  Db::fetchAll($query);
+
+        foreach ($products as &$product) {
+            $images = ProductImage::getListByProductId($product['id']);
+            $product['images'] = $images;
+        }
+
+        return $products;
+    }
+
+    /**
+     * @return string
+     */
+    public static function getListCount()
+    {
+        $query = "SELECT COUNT(*) as count FROM products p LEFT JOIN categories c ON p.category_id = c.id";
+        return Db::fetchOne($query);
     }
 
     public static function getById($id)
@@ -74,6 +90,15 @@ class Product
             'description' => Request::getStrFromPost('description'),
             'category_id' => Request::getIntFromPost('category_id'),
         ];
+    }
+
+    public static function getByField(string $mainField, string $value)
+    {
+        $mainField = Db::escape($mainField);
+        $value = Db::escape($value);
+
+        $query = "SELECT * FROM products WHERE `$mainField` = '$value'";
+        return Db::fetchRow($query);
     }
 
 }

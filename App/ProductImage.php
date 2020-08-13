@@ -118,8 +118,25 @@ class ProductImage
             return false;
         }
 
-        $imageExt = static::getExtensionByUrl($imageUrl);
+        $imageMetaData = static::getMetaDataByURL($imageUrl);
+
+        $mimeType = $imageMetaData['mimeType'];
+        if (is_null($mimeType)) {
+            return false;
+        }
+
+        $imageExt = static::getExtensionBtMimeType($mimeType);
         if (is_null($imageExt)) {
+            return false;
+        }
+
+        $size = $imageMetaData['size'];
+        if (is_null($size)) {
+            return false;
+        }
+
+        $duplicateProductImage = ProductImage::getByProductIdAndSize($productId, $size);
+        if (!empty($duplicateProductImage)) {
             return false;
         }
 
@@ -127,6 +144,7 @@ class ProductImage
             'product_id' => $productId,
             'name'       => '',
             'path'       => '',
+            'size'       => $size,
         ]);
 
         $filename = $productId . '_' . $productImageId . '_upload_' . time() . '.' . $imageExt;
@@ -143,33 +161,59 @@ class ProductImage
         return true;
     }
 
-    protected static function getExtensionByUrl(string $url)
+    protected static function getExtensionBtMimeType(string $mimeType)
     {
-        $mimeType = static::getMimeTypeByUrl($url);
-
         return static::IMAGES_MIME_DICT[$mimeType] ?? null;
     }
 
-    protected static function getMimeTypeByURL(string $url)
+    protected static function getMetaDataByURL(string $url)
     {
         $headers = @get_headers($url);
         if ($headers === false) {
             return null;
         }
 
-        $mimeType = null;
+        $metaDataHeaders = [
+            'Content-Length',
+            'Content-Type'
+        ];
 
+        $metaData = [
+            'mimeType' => null,
+            'size'     => null,
+        ];
+
+        $mimeType = null;
         foreach ($headers as $headerStr) {
-            $headerStr = strtolower($headerStr);
-            if (strpos($headerStr, "content-type") === false) {
+
+            $header = null;
+            foreach ($metaDataHeaders as $metaDataHeader) {
+                if (strpos(strtolower($headerStr), strtolower($metaDataHeader)) === false) {
+                    continue;
+                }
+                $header = $metaDataHeader;
+                break;
+            }
+
+            if (is_null($header)) {
                 continue;
             }
 
-            $header = explode(':', $headerStr);
-            $mimeType = trim($header[1]) ?? '';
+            $headerData = explode(':', $headerStr);
+            $headerValue = trim(strtolower($headerData[1] ?? ''));
+
+            switch ($header) {
+                case 'Content-Length':
+                    $metaData['size'] = $headerValue;
+                    break;
+                case 'Content-Type':
+                    $metaData['mimeType'] = $headerValue;
+                    break;
+
+            }
         }
 
-        return $mimeType;
+        return $metaData;
     }
 
     protected static function getUploadDirForProduct(int $productId)
@@ -203,6 +247,12 @@ class ProductImage
         }
 
         return $filename;
+    }
+
+    private static function getByProductIdAndSize(int $productId, int $size)
+    {
+        $query = "SELECT * FROM product_images WHERE product_id = $productId AND size = $size";
+        return Db::fetchRow($query);
     }
 
 
