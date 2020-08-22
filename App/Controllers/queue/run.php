@@ -2,6 +2,6 @@
 
 $id = Request::getIntFromGet('id');
 
-TasksQueue::run($id);
+TasksQueue::runById($id);
 
 Response::redirect('/queue/list');
