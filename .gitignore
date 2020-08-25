@@ -1,3 +1,6 @@
 .idea
 var/compile
 /var/compile/
+public/upload/*
+
+/vendor/
